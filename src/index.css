@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", "Inter", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-bg: #f4f1ea;
+  --color-surface: #ece8de;
+  --color-surface-2: #e3ded2;
+  --color-ink: #17160f;
+  --color-muted: #6b665a;
+  --color-line: #d5cfc1;
+  --color-accent: #c2410c;
+  --color-accent-2: #a16207;
+  --color-on-accent: #fff8f1;
+}
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+  scroll-behavior: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+  border: 2px solid var(--color-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+}
+
+.font-display em, em.font-display {
+  font-style: italic;
+  font-optical-sizing: auto;
+}
+
+@layer base {
+  a {
+    color: inherit;
+  }
+}
+
+.font-mono-tight {
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+}
+
+.text-outline {
+  -webkit-text-stroke: 1.5px var(--color-muted);
+  color: transparent;
+}
+
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  transition: opacity 0.3s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* One vertical rhythm for every section */
+.section-y {
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.section-pad {
+  padding-left: clamp(1.25rem, 6vw, 6rem);
+  padding-right: clamp(1.25rem, 6vw, 6rem);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ---------- Interaction system ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Blueprint grid behind diagrams */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-line) 55%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+
+/* Underline that draws in from the left */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: 2px;
+}
+.link-underline:hover,
+.link-underline:focus-visible,
+.group:hover .link-underline {
+  background-size: 100% 1px;
+}
+
+/* Arrow that slides out and a fresh one slides in */
+.arrow-slide {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  width: 1em;
+  height: 1.2em;
+  line-height: 1.2em;
+}
+.arrow-slide > span {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.arrow-slide > span:last-child {
+  transform: translateX(-120%);
+}
+.group:hover .arrow-slide > span:first-child,
+.arrow-slide:hover > span:first-child {
+  transform: translateX(120%);
+}
+.group:hover .arrow-slide > span:last-child,
+.arrow-slide:hover > span:last-child {
+  transform: translateX(0);
+}
+
+/* Tactile press state */
+.press {
+  transition-property: color, background-color, border-color, transform, opacity;
+}
+.press:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-marquee {
+    animation: none;
+  }
+}
+
+:root[data-theme="light"] .grain::before {
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+}
+
+/* Smooth hand-off when switching themes */
+.theme-switching,
+.theme-switching * {
+  transition-property: color, background-color, border-color, fill, stroke;
+  transition-duration: 0.35s;
+}

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(> /tmp/vite-dev.log)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5175/)",
+      "Read(//private/tmp/**)"
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f1ea" />
+    <meta
+      name="description"
+      content="Ayush Kumar — Software Engineer building high-throughput backend systems, microservices, and full-stack products at scale."
+    />
+    <title>Ayush Kumar — Software Engineer</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ayush Kumar — Software Engineer" />
+    <meta
+      property="og:description"
+      content="Backend-heavy full-stack engineer: payments, microservices and systems that don't fall over."
+    />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300..700&family=JetBrains+Mono:wght@300..600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script>
+      // Apply the saved colour theme before first paint to avoid a flash.
+      try {
+        var t = JSON.parse(localStorage.getItem('portfolio-theme') || 'null')
+        if (t && t.vars) {
+          var m = { bg: 'bg', surface: 'surface', surface2: 'surface-2', ink: 'ink', muted: 'muted', line: 'line', accent: 'accent', accent2: 'accent-2', onAccent: 'on-accent' }
+          var r = document.documentElement
+          for (var k in m) if (t.vars[k]) r.style.setProperty('--color-' + m[k], t.vars[k])
+          r.style.colorScheme = t.mode
+          r.dataset.theme = t.mode
+        }
+      } catch (e) {}
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
